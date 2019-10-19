@@ -1,11 +1,14 @@
 const fs = require('fs')
+const http = require("http");
 const express = require('express')
 const bodyParser = require('body-parser')
 const {chapterList} = require('./data')
 
 var app = express();
 app.use(bodyParser());
-app.use(express.static('allfile'));
+app.use(express.static('file'));
+
+http.createServer(app);
 
 app.get('/',(req,res)=>{
     res.type('text/plain');
@@ -84,10 +87,6 @@ app.get('/addChapter/',(req,res)=>{
 })
 
 app.get('/article/', (req, res) => {
-    res.send(chapterList);
-})
-
-app.get('/list/css/base.css',(req,res)=>{
     res.send(chapterList);
 })
 
