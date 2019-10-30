@@ -6,7 +6,7 @@ const {chapterList} = require('./data')
 
 var app = express();
 app.use(bodyParser());
-app.use(express.static('file'));
+app.use(express.static('public'));
 
 http.createServer(app);
 
@@ -44,20 +44,20 @@ app.get('/list/',(req,res)=>{
     res.end(fileContent);
 })
 //文章列表
-var Chapter1 = {}
+var list = {}
 app.get('/detail',(req,res)=>{
     if(req.query.again){
         res.type('text/json');
         res.status(200);
-        res.send(Chapter1);
-        console.log(Chapter1);
+        res.send(list);
+        console.log(list);
     }else{
         var fileContent = fs.readFileSync(__dirname+'\\chapter.html');
         res.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
         res.end(fileContent);
         for(var i in chapterList){
             if(chapterList[i].chapterId == req.query.chapterId){
-                Chapter1 = chapterList[i];
+                list = chapterList[i];
             }
         }
     }
